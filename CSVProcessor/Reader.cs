@@ -86,12 +86,14 @@ namespace CSVProcessor
                             {
                                 productName.Add(values[0]);
                                 productType.Add(values[1]);
-                                productSubtype.Add(values[2]);
+                                productSubtype.Add(values[3]);
 
                                 lineCounter++;
                             }
 
                         }
+                        
+                        
 
 
                         reader.Close();
@@ -129,7 +131,7 @@ namespace CSVProcessor
                     for (int i = 1; i < productName.Count; i++)
                     {
                         
-                        writer.Write(productID[i] + productName[i] + "," + productType[i] +  ","+ productSubtype[i] + "\n");
+                        writer.Write(productID[i] + productName[i] + "," + productType[i] +  "," + productSubtype[i] + "\n");
                        
                     }
 
@@ -137,6 +139,11 @@ namespace CSVProcessor
                 }
 
                 
+            }
+
+            foreach (var item in productSubtype)
+            {
+                Console.WriteLine(item);
             }
           
             Console.WriteLine("New File written\nYou can exist now.\nPress Enter...");
