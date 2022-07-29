@@ -11,12 +11,6 @@ namespace CSVProcessor
     internal class Reader
     {
 
-        int totalProducts = 0;
-
-        //public int[] productID = new int[5];
-        //public string[] productName = new string[5];
-
-
         string fileName = "";
         string filePath = "";
         string fileContent = "";
@@ -26,8 +20,9 @@ namespace CSVProcessor
         List<Guid> productID = new List<Guid>();
         List<string> productName = new List<string>();
         List<string> productType = new List<string>();
+        List<string> productSubtype = new List<string>();
 
-        // StreamReader reader = new StreamReader();
+        
 
 
         public void OpenAndReadFile()
@@ -91,6 +86,7 @@ namespace CSVProcessor
                             {
                                 productName.Add(values[0]);
                                 productType.Add(values[1]);
+                                productSubtype.Add(values[2]);
 
                                 lineCounter++;
                             }
@@ -124,49 +120,35 @@ namespace CSVProcessor
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
 
-                // if ((stream = saveFileDialog.OpenFile()) != null)
-                // {
                 using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
                 {
-                    // Code to write the stream goes here.
-                    for (int i = 0; i < productName.Count; i++)
-                    {
+                    Console.WriteLine("Writing New File...\n");
+                    writer.Write("ProductId" + "," + "ProductName" + "," + "ProductType" + "," + "ProductSubtype" + ","
+                        + "ProductDescription" + "," + "ProductImage" + "," + "FileName" + "," + "OS" + "\n");
 
-                        writer.Write(productID[i] + "," + productName[i] + "," + productType[i] + "\n");
-                        //Console.WriteLine(productID[i] + "," + productName[i] + "," + productType[i]);
+                    for (int i = 1; i < productName.Count; i++)
+                    {
+                        
+                        writer.Write(productID[i] + "," + productName[i] + "," + productType[i] +  ","+ productSubtype[i] + "\n");
+                       
                     }
 
                     writer.Close();
                 }
 
-                // stream.Close();
-                // }
+                
             }
-            //Need to fix header
-            Console.WriteLine("New File written. You can exist now");
+          
+            Console.WriteLine("New File written\nYou can exist now.\nPress Enter...");
 
 
 
         }
 
-        public string Print()
-        {
-            string output = "";
-
-            for (int i = 0; i < productName.Count; i++)
-            {
-                output += "\n";
-                output += productName[i] + " " + productType[i];
-            }
-
-            return output;
-        }
-
-
+      
         public void Run()
         {
             OpenAndParseFile();
-           // Console.WriteLine(Print());
             GenerateGuid();
             WriteCSV();
 
@@ -174,6 +156,7 @@ namespace CSVProcessor
 
         public void GenerateGuid()
         {
+           
             for (int i = 0; i < productName.Count; i++)
             {
                 Guid productGuid = Guid.NewGuid();
@@ -182,10 +165,6 @@ namespace CSVProcessor
 
         }
 
-        public int ProductCounter()
-        {
-
-            return totalProducts;
-        }
+      
     }
 }
