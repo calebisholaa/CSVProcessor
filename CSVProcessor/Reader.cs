@@ -129,7 +129,7 @@ namespace CSVProcessor
                     for (int i = 1; i < productName.Count; i++)
                     {
                         
-                        writer.Write(productID[i] + "," + productName[i] + "," + productType[i] +  ","+ productSubtype[i] + "\n");
+                        writer.Write(productID[i] + productName[i] + "," + productType[i] +  ","+ productSubtype[i] + "\n");
                        
                     }
 
